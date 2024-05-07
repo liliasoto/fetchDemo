@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+interface EstadoConFetchProps {
+  imageURL: string | null;
+  isLoading: boolean;
+  error: Error | null;
+}
 
-function EstadoConFetch() {
-  const [imageURL, setImageURL] = useState(null);
+function EstadoConFetch({ imageURL, isLoading, error }: EstadoConFetchProps) {
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/photos", {mode: "cors"})
-      .then((response) => response.json())
-      .then((response) => setImageURL(response[0].url))
-      .catch((error) => console.error(error));
-  }, []);
+  if(isLoading) return <p>Page loading, please wait !!!</p>
+
+  if(error) return <p>A network error was encountered!!!</p>
 
   return (
     imageURL && (
